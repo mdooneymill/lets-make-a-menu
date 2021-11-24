@@ -16,18 +16,29 @@ By giving our buttons a bigger hit area it becomes easier for people to navigate
 To achieve this we can add a `<div>` inside the `<a>` tag and expand it to fill whatever area is needed.
 
 ```html
-<ul class="nav">
-    <li class="nav">
-        <a class="nav" href="#01">
-            <div class="nav-item">
-                Option 01
-            </div>
-        </a>
-    </li>
-</ul>
+<div class="nav">
+    <ul class="nav">
+        <li class="nav">
+            <a class="nav" href="#01">
+                <div class="nav-item">
+                    Option 01
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+```
+
+The main navigation `<div>` defines the menu width.
+```css
+div.nav {
+    width: 350px;
+    background-color:black;
+    margin: 10px;
+}
 ```
   
-Now we only need a little css to give the buttons a bigger hit area.  
+Now we only need a little more css to give the buttons a bigger hit area.  
 ```css
 div.nav-item {
     padding:10px;
@@ -48,6 +59,6 @@ li.nav:hover {
 }
 ```
 
-And that's it, the basic menu is finished.
+And that's it! the basic menu is finished.
 
 <img src="docs/lesson-01-menu.png" style="width:350px" />
