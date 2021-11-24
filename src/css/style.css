@@ -1,4 +1,46 @@
-.hello-text {
-    font-weight: bold;
-    color: red;
+/* clearing default padding and margins */
+*, body, html {
+    padding:0;
+    margin:0;
+    font-family: helvetica, arial, sans-serif;
+}
+
+html {
+    background-color: darkgrey;
+}
+
+/* Navigation Elements */
+div.nav {
+    width: 350px;
+    background-color:black;
+    margin: 10px;
+}
+
+div.nav-item {
+    padding:10px;
+}
+
+ul.nav {
+    padding: 0.125px 0;
+}
+
+li.nav {
+    display: block;
+    list-style-type: none;
+    background-color:lightgrey;
+    margin: 3px;
+}
+
+li.nav:hover {
+    background-color: rgb(71, 71, 71);
+}
+
+a.nav {
+    text-decoration: none;
+    display: block;
+    color: black;
+}
+
+a.nav:hover {
+    color: white;
 }
