@@ -20,7 +20,7 @@ __Delay__ is an optional delay for the start of the animation
 
 Here are 6 example transitions using our menu.
 
-#### Fade Background Colour
+### Fade Background Colour
 
 The `<li>` tag and it's content remain the same in this example. By adding one line to our existing CSS we can fade the background colour over time.
 
@@ -40,7 +40,7 @@ li.nav:hover {
 
 The transition we added says that the `background-color` property should transition over `0.25` seconds with an `ease-out` motion. Now when we change the colour on the hover state the css knows what colour to transition to.
 
-#### Text Shadow
+### Text Shadow
 
 The text shadow effect needs to target the copy in our button rather than the whole box. With CSS we can set styles on classes that live within other classes. In this example we only want to style our nav-item `<div>` which lives inside the example-02 `<li>`.  
 You can target that combination by adding the parent first, then leaving a space and adding the child class.
@@ -57,7 +57,7 @@ li.example-02:hover div.nav-item {
 
 n.b. The css classes here are different for each button which isn't something you would normally do with a menu. The example css references `li.example-02` but you could use `li.nav` to apply it to all the nav buttons.
 
-#### A quick note on `position`
+### A quick note on `position`
 
 For the rest of the examples we are using a slightly modified button layout.
 
@@ -101,7 +101,7 @@ div.nav-fill {
 
 Read more: [position CSS property on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/position)
 
-#### Scale Background Width
+### Scale Background Width
 
 Now we can animate the background of the link to give us some fancier effects and we haven't even touched any javascript.  
 
@@ -118,7 +118,7 @@ li.example-03:hover div.nav-fill {
 }
 ```
 
-#### Scale Background Height
+### Scale Background Height
 
 Almost the same as above but we transition the height property instead.
 
@@ -133,7 +133,7 @@ li.example-04:hover div.nav-fill {
 }
 ```
 
-#### Masked Background
+### Masked Background
 
 Up til now our background div was the same size and shape as our button and we altered it's size. If we set the size to a value larger than 100% or less than 0 our background would be visble outside of the button.
 
@@ -160,7 +160,7 @@ li.example-05:hover div.nav-fill {
 }
 ```
 
-#### Multiple Properties and Delays
+### Multiple Properties and Delays
 
 You can use multiple css transitions on your elements at once and when combined with delays create complex looking transitions.  
 
