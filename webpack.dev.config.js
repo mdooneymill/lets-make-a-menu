@@ -1,5 +1,7 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const HTMLWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+
 
 module.exports = {
     mode: 'development',
@@ -8,11 +10,16 @@ module.exports = {
         new HTMLWebpackPlugin({
             title: "Let's make a menu",
             template: './src/html/index.html',
-            minify: false
+            minify: false,
+            cache: false,
+            watch: true,
+            alwaysWriteToDisk: true
         }),
+        new HTMLWebpackHarddiskPlugin()
     ],
     devtool: 'inline-source-map',
     devServer: {
+        hot: true,
         static: './dist',
     },
     output: {
