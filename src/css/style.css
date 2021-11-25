@@ -1,7 +1,7 @@
 /* clearing default padding and margins */
 *, body, html {
-    padding:0;
-    margin:0;
+    padding: 0;
+    margin: 0;
     font-family: helvetica, arial, sans-serif;
 }
 
@@ -12,12 +12,28 @@ html {
 /* Navigation Elements */
 div.nav {
     width: 350px;
-    background-color:black;
+    background-color: black;
     margin: 10px;
 }
 
 div.nav-item {
-    padding:10px;
+    padding: 10px;
+    position: relative;
+}
+
+/* new background div */
+div.nav-fill {
+    background-color: rgba(71, 71, 71, 1);
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* new copy holder */
+div.nav-copy {
+    position: relative;
+    z-index: 1;
 }
 
 ul.nav {
@@ -27,13 +43,87 @@ ul.nav {
 li.nav {
     display: block;
     list-style-type: none;
-    background-color:lightgrey;
+    background-color: lightgrey;
     margin: 3px;
 }
 
-li.nav:hover {
+/* 
+Note: These are split up more than you would normally need for the example's sake.
+*/
+
+/* background color fade */
+li.example-01 {
+    transition: background-color 0.25s ease-out;
+}
+li.example-01:hover {
     background-color: rgb(71, 71, 71);
 }
+
+/* text shadow */
+li.example-02 div.nav-item{
+    text-shadow: none;
+    transition: text-shadow 0.25s ease-out;
+}
+li.example-02:hover div.nav-item {
+    text-shadow: 3px 3px 5px black;
+}
+
+/* background width scale */
+li.example-03 div.nav-fill {
+    height: 100%;
+    width: 0;
+    transition: width 0.165s ease-out;
+}
+li.example-03:hover div.nav-fill {
+    width: 100%;
+}
+
+/* background height scale */
+li.example-04 div.nav-fill {
+    height: 0;
+    width: 100%;
+    transition: height 0.125s ease-out;
+}
+li.example-04:hover div.nav-fill {
+    height: 100%;
+}
+
+/* masked background */
+li.example-05 {
+    overflow: hidden;
+}
+li.example-05 div.nav-fill {
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    top: 130%;
+    left: -50%;
+    transition: top 0.25s ease-out;
+}
+li.example-05:hover div.nav-fill {
+    top: -130%;
+}
+
+/* background and text with a delay */
+li.example-06 div.nav-fill {
+    height: 100%;
+    width: 0;
+    transition: width 0.25s ease-out;
+}
+li.example-06:hover div.nav-fill {
+    width: 100%;
+}
+li.example-06 div.nav-item{
+    text-shadow: none;
+    transition: text-shadow 0.25s ease-out;
+}
+li.example-06:hover div.nav-item {
+    text-shadow: 3px 3px 2px orange;
+    transition: text-shadow 0.25s ease-out 0.25s;
+}
+
+
+
 
 a.nav {
     text-decoration: none;

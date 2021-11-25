@@ -1,57 +1,36 @@
-#### Lesson 01
-## Static HTML and CSS
+#### Lesson 02
+## CSS Transitions
 
-Building a new menu for a website should generally start with creating HTML and CSS that works well before you dive into any javascript.  
+Our menu looks and works ok but let's add some animation to our hover state using CSS Transitions.
 
-Starting this way means we can address any layout issues or styling problems without worrying aobut whether our code is causing errors. Essentially when we use javascript to create these elements we still style them with the same css anyway, we can just apply the class and id tags to grab the style.
+You can find lots of information about using transitions on [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions)
 
-
-
-#### Buttons
-
-While an anchor tab that only contains text works as a link and may be sufficient in some cases, it's not a great user experience because only the text itself is clickable.  
-  
-By giving our buttons a bigger hit area it becomes easier for people to navigate both via touch and by giving hints with mouse cursors.  
-
-To achieve this we can add a `<div>` inside the `<a>` tag and expand it to fill whatever area is needed.
-
-```html
-<div class="nav">
-    <ul class="nav">
-        <li class="nav">
-            <a class="nav" href="#01">
-                <div class="nav-item">
-                    Option 01
-                </div>
-            </a>
-        </li>
-    </ul>
-</div>
-```
-
-The main navigation `<div>` defines the menu width.
+Transitions are defined in CSS using the following syntax.
 ```css
-div.nav {
-    width: 350px;
-    background-color:black;
-    margin: 10px;
-}
-```
-  
-Now we only need a little more css to give the buttons a bigger hit area.  
-```css
-div.nav-item {
-    padding:10px;
+div {
+    transition: <property> <duration> <timing-function> <delay>;
 }
 ```
 
-Give the list item `<li>` a hover state so users get visual feedback to help with navigation. 
+__Property__ is the CSS property we want to animate
+__Duration__ is the amount of time the animation takes
+__Timing-function__ can be defined by a cubic bezier or default easing functions
+__Delay__ is an optional delay for the start of the animation
+
+
+Here are 6 example transitions using our menu.
+
+#### Fade Background Colour
+
+The `<li>` tag and it's content remain the same in this example. By adding one line to our existing CSS we can fade the background colour over time.
+
 ```css
 li.nav {
     display: block;
     list-style-type: none;
     background-color:lightgrey;
     margin: 3px;
+    transition: background-color 0.25s ease-out;
 }
 
 li.nav:hover {
@@ -59,6 +38,150 @@ li.nav:hover {
 }
 ```
 
-And that's it! the basic menu is finished.
+The transition we added says that the `background-color` property should transition over `0.25` seconds with an `ease-out` motion. Now when we change the colour on the hover state the css knows what colour to transition to.
 
-<img src="docs/lesson-01-menu.png" style="width:350px" />
+#### Text Shadow
+
+The text shadow effect needs to target the copy in our button rather than the whole box. With CSS we can set styles on classes that live within other classes. In this example we only want to style our nav-item `<div>` which lives inside the example-02 `<li>`.  
+You can target that combination by adding the parent first, then leaving a space and adding the child class.
+
+```css
+li.example-02 div.nav-item{
+    text-shadow: none;
+    transition: text-shadow 0.25s ease-out;
+}
+li.example-02:hover div.nav-item {
+    text-shadow: 3px 3px 5px black;
+}
+```
+
+n.b. The css classes here are different for each button which isn't something you would normally do with a menu. The example css references `li.example-02` but you could use `li.nav` to apply it to all the nav buttons.
+
+#### A quick note on `position`
+
+For the rest of the examples we are using a slightly modified button layout.
+
+```html
+<li class="nav example-03">
+    <a class="nav" href="#03">
+        <div class="nav-item">
+            <div class="nav-fill"></div>
+            <div class="nav-copy">Scale Background Width</div>
+        </div>
+    </a>
+</li>
+```
+Instead of just putting text inside the nav-item `<div>` we add a div to be our background, nav-fill, and another to contain the copy, nav-copy.  
+We need to alter the CSS a little bit to handle this properly. The nav-fill div should sit behind the copy so we use a z-depth property to control their display order. There is a caveat here, the z-index CSS property will only set the display order for positioned elements.  
+
+```css
+div.nav-item {
+    padding: 10px;
+    position: relative;
+}
+
+div.nav-copy {
+    position: relative;
+    z-index: 1;
+}
+```
+Here we use a `position: relative;` on both the containing element, nav-item, and the copy element, nav-copy.  
+Now to make our background sit in the right position we can use `position: absolute;` to let us align it in the relatively positioned div.  
+By setting both the `top` and `left` values to 0 we can sit the background flush in it's container.  
+Also note how the `z-index` value for `nav-fill` is set to a lower value than `nav-copy` so that it displays behind the text.
+```css
+div.nav-fill {
+    background-color: rgba(71, 71, 71, 1);
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+```
+
+Read more: [position CSS property on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/position)
+
+#### Scale Background Width
+
+Now we can animate the background of the link to give us some fancier effects and we haven't even touched any javascript.  
+
+In this example the width is scaled from 0 to 100%.
+
+```css
+li.example-03 div.nav-fill {
+    height: 100%;
+    width: 0;
+    transition: width 0.165s ease-out;
+}
+li.example-03:hover div.nav-fill {
+    width: 100%;
+}
+```
+
+#### Scale Background Height
+
+Almost the same as above but we transition the height property instead.
+
+```css
+li.example-04 div.nav-fill {
+    height: 0;
+    width: 100%;
+    transition: height 0.125s ease-out;
+}
+li.example-04:hover div.nav-fill {
+    height: 100%;
+}
+```
+
+#### Masked Background
+
+Up til now our background div was the same size and shape as our button and we altered it's size. If we set the size to a value larger than 100% or less than 0 our background would be visble outside of the button.
+
+By setting the conataining `<li>` element's `overflow` property to `hidden` it means anything that isn't inside the div isn't visible, like a mask.
+
+```css
+li.example-05 {
+    overflow: hidden;
+}
+```
+Now we can move the background element around and we only see it 'through' the button. In this example I have made it a large circle that moves up into view when we rollover the button. 
+
+```css
+li.example-05 div.nav-fill {
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    top: 130%;
+    left: -50%;
+    transition: top 0.25s ease-out;
+}
+li.example-05:hover div.nav-fill {
+    top: -130%;
+}
+```
+
+#### Multiple Properties and Delays
+
+You can use multiple css transitions on your elements at once and when combined with delays create complex looking transitions.  
+
+Here's a simple example where the background width is scaled over 0.25 seconds and the text shadow is brought in afterwards by adding a delay value to our transition.  
+
+```css
+li.example-06 div.nav-fill {
+    height: 100%;
+    width: 0;
+    transition: width 0.25s ease-out;
+}
+li.example-06:hover div.nav-fill {
+    width: 100%;
+}
+li.example-06 div.nav-item{
+    text-shadow: none;
+    transition: text-shadow 0.25s ease-out;
+}
+li.example-06:hover div.nav-item {
+    text-shadow: 3px 3px 2px orange;
+    transition: text-shadow 0.25s ease-out 0.25s;
+}
+```
+
