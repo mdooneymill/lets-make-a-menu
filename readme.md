@@ -7,7 +7,7 @@ Starting this way means we can address any layout issues or styling problems wit
 
 
 
-#### Buttons
+### Buttons
 
 While an anchor tab that only contains text works as a link and may be sufficient in some cases, it's not a great user experience because only the text itself is clickable.  
   
