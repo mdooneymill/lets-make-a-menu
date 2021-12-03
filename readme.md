@@ -92,9 +92,9 @@ We do that by 'binding' our callback function to our class. We are setting `this
 ```javascript
 this.handleClick = this.handleClick.bind( this );
 ```
-Now when handleClick is called it can see the MenuButton variables.
+Now when handleClick is called it can see the MenuButton variables.  
 
-### Updating The Menu Class
+### Updating The Menu Class
 
 We now need to update the Menu class so that our MenuButtons are passed all the information they needed when we create them and also add a function to be called when the MenuButton is clicked.  
 
