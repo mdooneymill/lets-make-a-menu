@@ -53,5 +53,5 @@ As a very loose rule, if you need access to an element in your code you should p
 
 ### Further Reading
 
-[Document.createElement on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement)
+[Document.createElement on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement)  
 [Node.appendChild on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild)
