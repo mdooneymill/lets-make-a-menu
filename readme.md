@@ -35,7 +35,7 @@ You can think of each tag or element on an HTML page as a bunch of nested object
 ### Creating the Buttons
 
 The buttons are created in a similar way to the menu. The MenuButton class expects a string to be passed to the constructor which we use as the button content.  
-However I create the button HTML in a slightly different way to above. Our DOM element, `<li>` this time, is created as before but we use an HTML string to create the button content. (Have a look at `menu-button.js` to see the equivalent with javascript)
+However; we create the button HTML in a slightly different way to above. Our DOM element, `<li>` this time, is created as before but we use an HTML string to create the button content. (Have a look at `menu-button.js` to see the equivalent with javascript)
 
 ```javascript
 this.domElement.innerHTML = `<a class="nav" href="#01">
