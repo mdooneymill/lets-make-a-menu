@@ -32,7 +32,9 @@ div.nav-fill {
     transition: width 0.33s cubic-bezier(0.11, 0, 0.5, 0);
 }
 
-li.nav:hover div.nav-fill {
+/* We now want the button hover state to stay active if it has our selected class added */
+li.nav:hover div.nav-fill, 
+li.selected div.nav-fill {
     width: 7px;
     transition: width 0.165s cubic-bezier(0.5, 1, 0.89, 1);
 }
@@ -44,7 +46,9 @@ div.nav-copy {
     transition: padding-left 0.33s cubic-bezier(0.11, 0, 0.5, 0);
 }
 
-li.nav:hover div.nav-copy {
+/* We now want the button hover state to stay active if it has our selected class added */
+li.nav:hover div.nav-copy, 
+li.selected div.nav-copy {
     padding-left: 7px;
     transition: padding-left 0.165s cubic-bezier(0.5, 1, 0.89, 1);
 }
@@ -58,6 +62,7 @@ li.nav {
     list-style-type: none;
     background-color: lightgrey;
     margin: 3px;
+    cursor: pointer;
 }
 
 a.nav {

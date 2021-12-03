@@ -8,32 +8,53 @@ export class Menu
     constructor()
     {
 
-        // First create the containing div, storing it as a class variable ( this. )
         this.domElement = document.createElement( 'div' );
-        // assign the css class
         this.domElement.className = 'nav';
 
-        // Then create the ul
         let ul = document.createElement( 'ul' );
-        // assign the css class
         ul.className = 'nav';
 
-        // add it to the div 
         this.domElement.appendChild( ul );
 
-        // now create the buttons
-        // we'll store them in an Array
         this.buttons = [];
         for( let i = 0; i < 6; i++ )
         {
 
-            // create a new MenuButton and add to the Array
-            this.buttons[ i ] = new MenuButton( 'Option ' + i );
-            
-            // and add it to the ul
+            this.buttons[ i ] = new MenuButton( 
+                'Option ' + i, // the button label
+                i, // the button index
+                this.handleButtonClick.bind( this ) // the function we want it to call when clicked
+            );
+
             ul.appendChild( this.buttons[ i ].domElement );
 
         }
+
+        // store the current selected button.
+        // set to -1 at the start so nothing is selected
+        this.currentSelection = -1;
+
+    }
+
+    // Our clickCallback function, called by MenuButton.handleClick
+    handleButtonClick( buttonIndex )
+    {
+
+        // When this is called, a button has been clicked
+        // we get the button array location via buttonIndex
+
+        // If we have a currently selected button
+        // set it's selected value to false
+        if( this.currentSelection != -1 )
+        {
+            this.buttons[ this.currentSelection ].setSelected( false );
+        }
+
+        // Store the new button selection
+        this.currentSelection = buttonIndex;
+
+        // And set the button state to selected
+        this.buttons[ this.currentSelection ].setSelected( true );
 
     }
 
