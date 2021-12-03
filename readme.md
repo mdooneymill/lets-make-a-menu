@@ -18,4 +18,6 @@ Run the examples with `npm run dev`  and `npm run build
 
 [Lesson 01 - Static HTML and CSS](https://github.com/mdooneymill/lets-make-a-menu/tree/01)
 
-[Lesson 02 - CSS Transitions](https://github.com/mdooneymill/lets-make-a-menu/tree/02)
+[Lesson 02 - CSS Transitions](https://github.com/mdooneymill/lets-make-a-menu/tree/02)  
+
+[Lesson 03 - Creating Elements With Javascript](https://github.com/mdooneymill/lets-make-a-menu/tree/03)  
