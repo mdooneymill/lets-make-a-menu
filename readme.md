@@ -9,7 +9,7 @@ We need to add some extra logic to both then Menu and MenuButton classes to achi
 
 - The Menu will create each MenuButton
 - When a MenuButton is clicked, it should tell the Menu
-- When the Menu is told a MenuButton is clicked it should deselect the current select, if any, and select the clicked button.
+- When the Menu is told a MenuButton is clicked it should deselect the current button, if any, and select the clicked button.
 
 ### Updating The MenuButton Class
 
