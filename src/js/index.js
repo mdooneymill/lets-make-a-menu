@@ -9,7 +9,19 @@ import '/src/css/style.css';
 // Import our Menu class
 import { Menu } from './menu';
 
-// Create a new Menu object and pass it the menu_data json object
-let menu = new Menu( Data.menu_data );
+// Callback function for the MenuButtons
+function handleMenuButtonClick( buttonIndex )
+{
+
+    // If this button is already selected, we can ignore the click
+    if( menu.currentSelection == buttonIndex )
+        return;
+
+    // Otherwise tell the menu to update
+    menu.setSelected( buttonIndex ); 
+}
+
+// Create a new Menu object and pass it the menu_data json object and the callback function
+let menu = new Menu( Data.menu_data, handleMenuButtonClick.bind( this ) );
 // And add it's DOM Element to the Body of our page
 document.body.appendChild( menu.domElement );

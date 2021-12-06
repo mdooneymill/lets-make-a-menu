@@ -8,8 +8,8 @@ Let's start by making sure our currently selected item stays in it's hover state
 We need to add some extra logic to both then Menu and MenuButton classes to achieve this.  
 
 - The Menu will create each MenuButton
-- When a MenuButton is clicked, it should tell the Menu
-- When the Menu is told a MenuButton is clicked it should deselect the current button, if any, and select the clicked button.
+- When a MenuButton is clicked, it will call a callback function on index.js
+- When index.js is told a MenuButton is clicked it should check if it's a new selection and update the menu accordingly.
 
 ### Updating The MenuButton Class
 
@@ -98,15 +98,27 @@ Now when handleClick is called it can see the MenuButton variables.
 
 We now need to update the Menu class so that our MenuButtons are passed all the information they needed when we create them and also add a function to be called when the MenuButton is clicked.  
 
-First we create a variable to store the currently selected button index. We want the menu to start with nothing selected so we set the value to -1.
+First we need to update the constructor so that we can pass and store a callback function and also create a variable to store the currently selected button index. We want the menu to start with nothing selected so we set the value to -1.
 ```javascript
-this.currentSelection = -1;
+constructor( menuData, clickCallback )
+{
+    
+    // Store the menu Data and callback function
+    this.menuData = menuData;
+    this.clickCallback = clickCallback;
+
+    ...
+
+    // Store the current selection
+    this.currentSelection = -1;
+
+    ...
 ```
 
-Next we need to create a function that we will pass to the MenuButtons so they can call it when clicked.
+Next we need to create a function that we will use to update the Menu once a MenuButton is clicked.
 
 ```javascript
-handleButtonClick( buttonIndex )
+setSelected( buttonIndex )
 {
 
     // If we have a currently selected button
@@ -125,13 +137,13 @@ handleButtonClick( buttonIndex )
 }
 ```
 
-Finally we can add the new properties to our MenuButtons when we create them. Notice how we `bind` the Menu callback function to `this` so that when the function is called it has acces to the Menu class.
+Now we can add the new properties to our MenuButtons when we create them. Notice how we `bind` the Menu callback function to `this` so that when the function is called it has acces to the Menu class.
 
 ```javascript
 this.buttons[ i ] = new MenuButton( 
-                        'Option ' + i, // the button label
+                        buttonData.label, // the button label
                         i, // the button index
-                        this.handleButtonClick.bind( this ) // the function we want it to call when clicked
+                        this.clickCallback // the function we want it to call when clicked
                     );
 ```
 

@@ -6,11 +6,12 @@ import { MenuButton } from './menu-button';
 export class Menu 
 {
 
-    constructor( menuData )
+    constructor( menuData, clickCallback )
     {
         
-        // Store the menu Data
+        // Store the menu Data and callback function
         this.menuData = menuData;
+        this.clickCallback = clickCallback;
 
         this.domElement = document.createElement( 'div' );
         this.domElement.className = 'nav';
@@ -28,9 +29,8 @@ export class Menu
 
             this.buttons[ i ] = new MenuButton( 
                 buttonData.label, // the button label
-                buttonData.link, // the button link
                 i, // the button index
-                this.handleButtonClick.bind( this ) // the function we want it to call when clicked
+                this.clickCallback // the function we want it to call when clicked
             );
 
             ul.appendChild( this.buttons[ i ].domElement );
@@ -44,7 +44,7 @@ export class Menu
     }
 
     // Our clickCallback function, called by MenuButton.handleClick
-    handleButtonClick( buttonIndex )
+    setSelected( buttonIndex )
     {
 
         // When this is called, a button has been clicked
