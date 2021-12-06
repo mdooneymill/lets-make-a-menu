@@ -1,0 +1,28 @@
+{
+    "menu_data" : [
+        {
+            "label": "The Mill",
+            "link" : "https://www.themill.com"
+        },
+        {
+            "label": "Google",
+            "link" : "https://www.google.com"
+        },
+        {
+            "label": "Github",
+            "link" : "https://www.github.com"
+        },
+        {
+            "label": "Stack Overflow",
+            "link" : "https://www.stackoverflow.com"
+        },
+        {
+            "label": "MDN Web Docs",
+            "link" : "https://developer.mozilla.org/"
+        },
+        {
+            "label": "Webpack",
+            "link" : "https://webpack.js.org/"
+        }
+    ]
+}

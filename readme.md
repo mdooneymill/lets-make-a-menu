@@ -51,7 +51,62 @@ Sometimes this can be a quicker way to create a complex group of elements althou
 
 As a very loose rule, if you need access to an element in your code you should probably create it as an object with javscript.  
 
+### Using JSON Data 
+
+Now that our menu is creating the buttons for us we can look at using data from external sources to populate the content as well. This is where you gain lots of flexibility over static HTML as you can serve different content to users based on any sort of variable. For example, you may want to translate text for multiple countries and so you could load different data files based on browser locale.  
+
+There is a json file added to our assets folder with the menu content defined inside. `menu_data` contains an array of objects to define our buttons, each containing a label and link.
+
+```json
+{
+    "menu_data" : [
+        {
+            "label": "The Mill",
+            "link" : "https://www.themill.com"
+        },
+        ...
+```
+
+In our Webpack project we can simply import json files to our javascript and get access to the data as objects.  
+```javascript
+import Data from '/assets/json/data.json';
+console.log( Data.menu_data[0].label);
+// The Mill
+```
+If we import this data into our MenuButton class we can use each object to create the correct buttons for us with corresponding text and links.
+
+```javascript
+let buttonData = Data.menu_data[ i ];
+this.buttons[ i ] = new MenuButton( buttonData.label, buttonData.link );
+```
+
+We also need to update the MenuButton class to handle the new link data and add it to the anchor tag.
+
+```javascript
+constructor( label, link )
+{
+
+    // store the label and link values
+    this.label = label;
+    this.link = link;
+    
+    ...
+
+    this.domElement.innerHTML = `<a class="nav" href="` + link + `" target="_blank">
+                                    <div class="nav-item">
+                                        <div class="nav-fill"></div>
+                                        <div class="nav-copy">` + label + `</div>
+                                    </div>
+                                </a>`;
+
+    ...    
+
+```
+
+
+
 ### Further Reading
 
 [Document.createElement on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement)  
-[Node.appendChild on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild)
+[Node.appendChild on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild)  
+[JSON on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON)  

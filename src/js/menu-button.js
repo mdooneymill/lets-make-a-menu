@@ -3,11 +3,12 @@ export class MenuButton
 {
 
     // The constructor takes a label value for the button text
-    constructor( label )
+    constructor( label, link )
     {
 
-        // store the value
+        // store the label and link values
         this.label = label;
+        this.link = link;
 
         // create an element like before
         this.domElement = document.createElement( 'li' );
@@ -18,7 +19,8 @@ export class MenuButton
         // instead of creating each bit with code.
         // Notice how we add the button label to the same div as before
         // by esacping the string and inserting a reference to our label value
-        this.domElement.innerHTML = `<a class="nav" href="#01">
+        // we add the link to the anchor tag's href value the same way.
+        this.domElement.innerHTML = `<a class="nav" href="` + link + `" target="_blank">
                                         <div class="nav-item">
                                             <div class="nav-fill"></div>
                                             <div class="nav-copy">` + label + `</div>
