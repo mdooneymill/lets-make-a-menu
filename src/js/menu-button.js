@@ -2,13 +2,15 @@
 export class MenuButton
 {
 
+
     // We've added a few new variables to the button constructor
     // index is an int id for the button
     // clickCallback is a function the MenuButton will call when clicked
-    constructor( label, index, clickCallback )
+    constructor( label, link, index, clickCallback )
     {
 
         this.label = label;
+        this.link = link;
         this.index = index;
         this.clickCallback = clickCallback;
         this.selected = false;
@@ -16,7 +18,7 @@ export class MenuButton
         this.domElement = document.createElement( 'li' );
         this.domElement.className = 'nav';
 
-        this.domElement.innerHTML = `<a class="nav">
+        this.domElement.innerHTML = `<a class="nav" href="` + link + `" target="_blank">
                                         <div class="nav-item">
                                             <div class="nav-fill"></div>
                                             <div class="nav-copy">` + label + `</div>

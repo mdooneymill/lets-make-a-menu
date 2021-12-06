@@ -1,12 +1,16 @@
 // Import our MenuButton class
 import { MenuButton } from './menu-button';
 
+
 // Export our Menu class
 export class Menu 
 {
 
-    constructor()
+    constructor( menuData )
     {
+        
+        // Store the menu Data
+        this.menuData = menuData;
 
         this.domElement = document.createElement( 'div' );
         this.domElement.className = 'nav';
@@ -17,11 +21,14 @@ export class Menu
         this.domElement.appendChild( ul );
 
         this.buttons = [];
-        for( let i = 0; i < 6; i++ )
+        for( let i = 0; i < menuData.length; i++ )
         {
 
+            let buttonData = menuData[ i ];
+
             this.buttons[ i ] = new MenuButton( 
-                'Option ' + i, // the button label
+                buttonData.label, // the button label
+                buttonData.link, // the button link
                 i, // the button index
                 this.handleButtonClick.bind( this ) // the function we want it to call when clicked
             );
