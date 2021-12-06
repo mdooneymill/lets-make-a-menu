@@ -73,11 +73,39 @@ import Data from '/assets/json/data.json';
 console.log( Data.menu_data[0].label);
 // The Mill
 ```
-If we import this data into our MenuButton class we can use each object to create the correct buttons for us with corresponding text and links.
+
+We _could_ import the data into our Menu class but that would cost us some flexibilty, really the Menu class doesn't need to know where the data is, it should just get a list of button objects to create. In this example the data is imported to index.js and we pass the `menu_data` json object to the menu constructor.
 
 ```javascript
-let buttonData = Data.menu_data[ i ];
-this.buttons[ i ] = new MenuButton( buttonData.label, buttonData.link );
+(index.js)
+...
+let menu = new Menu( Data.menu_data );
+...
+(menu.js)
+export class Menu 
+{
+
+    constructor( menuData )
+    {
+        
+        // Store the menu Data
+        this.menuData = menuData;
+
+        ...
+```
+
+Now we can loop through the `menuData` array to create the buttons we need. Note how we use the length of the array to determine our loop length, meaning the menu can contain any number of buttons.
+
+
+```javascript
+for( let i = 0; i < menuData.length; i++ )
+{
+
+    let buttonData = menuData[ i ];
+    // create a new MenuButton and add to the Array
+    this.buttons[ i ] = new MenuButton( buttonData.label, buttonData.link );
+
+    ...
 ```
 
 We also need to update the MenuButton class to handle the new link data and add it to the anchor tag.
@@ -103,7 +131,7 @@ constructor( label, link )
 
 ```
 
-
+And now we have a dynamic menu which can be re-used across multiple locations with content based on data we pass it.
 
 ### Further Reading
 

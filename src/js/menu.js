@@ -1,15 +1,17 @@
 // Import our MenuButton class
 import { MenuButton } from './menu-button';
-// Import our data json
-import Data from '/assets/json/data.json';
+
 
 // Export our Menu class
 export class Menu 
 {
 
-    constructor()
+    constructor( menuData )
     {
         
+        // Store the menu Data
+        this.menuData = menuData;
+
         // First create the containing div, storing it as a class variable ( this. )
         this.domElement = document.createElement( 'div' );
         // assign the css class
@@ -26,10 +28,10 @@ export class Menu
         // now create the buttons
         // we'll store them in an Array
         this.buttons = [];
-        for( let i = 0; i < 6; i++ )
+        for( let i = 0; i < menuData.length; i++ )
         {
 
-            let buttonData = Data.menu_data[ i ];
+            let buttonData = menuData[ i ];
             // create a new MenuButton and add to the Array
             this.buttons[ i ] = new MenuButton( buttonData.label, buttonData.link );
             
