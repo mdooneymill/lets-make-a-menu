@@ -137,7 +137,7 @@ setSelected( buttonIndex )
 }
 ```
 
-Now we can add the new properties to our MenuButtons when we create them. Notice how we `bind` the Menu callback function to `this` so that when the function is called it has acces to the Menu class.
+Now we can add the new properties to our MenuButtons when we create them. Note we're no longer using links on the anchor tag any more so we don't need to pass a link to the button.
 
 ```javascript
 this.buttons[ i ] = new MenuButton( 
@@ -145,6 +145,30 @@ this.buttons[ i ] = new MenuButton(
                         i, // the button index
                         this.clickCallback // the function we want it to call when clicked
                     );
+```
+
+### Updated index.js
+
+We need to create a function to act as our Event Handler on the index.js file. All we need to do in this method is check whether the clicked button index is different to the current selection and update the menu if so.
+
+```javascript
+// Callback function for the MenuButtons
+function handleMenuButtonClick( buttonIndex )
+{
+
+    // If this button is already selected, we can ignore the click
+    if( menu.currentSelection == buttonIndex )
+        return;
+
+    // Otherwise tell the menu to update
+    menu.setSelected( buttonIndex ); 
+}
+```
+
+and of course we need to pass this callback function to the Menu class when we create it. This is a function that we `bind` to the index.js scope so that no matter where it is called from it has access to our Menu class. 
+
+```javascript
+let menu = new Menu( Data.menu_data, handleMenuButtonClick.bind( this ) );
 ```
 
 ### Updated CSS
