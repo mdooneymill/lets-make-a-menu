@@ -1,28 +1,22 @@
 {
     "menu_data" : [
         {
-            "label": "The Mill",
-            "link" : "https://www.themill.com"
+            "label": "Link One"
         },
         {
-            "label": "Google",
-            "link" : "https://www.google.com"
+            "label": "Link Two"
         },
         {
-            "label": "Github",
-            "link" : "https://www.github.com"
+            "label": "Link Three"
         },
         {
-            "label": "Stack Overflow",
-            "link" : "https://www.stackoverflow.com"
+            "label": "Link Four"
         },
         {
-            "label": "MDN Web Docs",
-            "link" : "https://developer.mozilla.org/"
+            "label": "Link Five"
         },
         {
-            "label": "Webpack",
-            "link" : "https://webpack.js.org/"
+            "label": "Link Six"
         }
     ]
 }
