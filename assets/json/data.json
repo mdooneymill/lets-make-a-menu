@@ -1,22 +1,38 @@
 {
-    "menu_data" : [
+    "page_data" : [
         {
-            "label": "Link One"
+            "link_label" : "Link One",
+            "title" : "Page One",
+            "content" : "This is page one, it is the first page."
         },
         {
-            "label": "Link Two"
+            "link_label" : "Link Two",
+            "title" : "Page Two",
+            "content" : "This is page two, it is the second page."
         },
         {
-            "label": "Link Three"
+            "link_label" : "Link Three",
+            "title" : "Page Three",
+            "content" : "This is page three, it is the third page."
         },
         {
-            "label": "Link Four"
+            "link_label" : "Link Four",
+            "title" : "Page Four",
+            "content" : "This is page four, it is the fourth page."
         },
         {
-            "label": "Link Five"
+            "link_label" : "Link Five",
+            "title" : "Page Five",
+            "content" : "This is page five, it is the fifth page."
         },
         {
-            "label": "Link Six"
+            "link_label" : "Link Six",
+            "title" : "Page Six",
+            "content" : "This is page six, it is the sixth page."
         }
-    ]
+    ],
+    "default_page" : {
+        "title" : "Default Page",
+        "content": "This is the default page. Open the menu and click a button to display a new page."
+    }
 }

@@ -13,7 +13,13 @@ html {
 div.nav {
     width: 350px;
     background-color: black;
-    margin: 10px;
+    position: absolute;
+    left: -350px; /* start menu off screen */
+    transition: left 0.45s cubic-bezier(0.5, 1, 0.89, 1);
+}
+
+div.open {
+    left: 0px;
 }
 
 div.nav-item {
@@ -30,6 +36,16 @@ div.nav-fill {
     height: 100%;
     width: 0;
     transition: width 0.33s cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+div.nav-toggle {
+    width: 44px;
+    height: 44px;
+    background: black;
+    position: absolute;
+    left: 350px;
+    top: 0px;
+    cursor: pointer;
 }
 
 /* We now want the button hover state to stay active if it has our selected class added */
@@ -71,3 +87,11 @@ a.nav {
     color: black;
 }
 
+/* Page Content */
+div.page {
+    padding: 58px 10px 10px 10px;
+}
+
+div.page h2 {
+    margin: 0 0 16px 0;
+}

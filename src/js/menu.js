@@ -13,6 +13,7 @@ export class Menu
         this.menuData = menuData;
         this.clickCallback = clickCallback;
 
+        // Create elements
         this.domElement = document.createElement( 'div' );
         this.domElement.className = 'nav';
 
@@ -28,7 +29,7 @@ export class Menu
             let buttonData = menuData[ i ];
 
             this.buttons[ i ] = new MenuButton( 
-                buttonData.label, // the button label
+                buttonData.link_label, // the button label
                 i, // the button index
                 this.clickCallback // the function we want it to call when clicked
             );
@@ -37,9 +38,35 @@ export class Menu
 
         }
 
-        // store the current selected button.
-        // set to -1 at the start so nothing is selected
+        // create a button to open / close the menu
+        this.toggleButton = document.createElement( 'div' );
+        this.toggleButton.className = 'nav-toggle';
+        this.domElement.appendChild( this.toggleButton );
+
+        this.toggleMenuState = this.toggleMenuState.bind( this );
+        this.toggleButton.onclick = this.toggleMenuState;
+
+        // create some SVG icons to display on the button 
+        this.openMenuIcon = document.createElement( 'svg' );
+        this.openMenuIcon.innerHTML = `<svg viewBox="0 0 44 44" width="44" height="44">
+                                            <rect x="4" y="10" width="36" height="3" fill="white"></rect>
+                                            <rect x="4" y="20" width="36" height="3" fill="white"></rect>
+                                            <rect x="4" y="30" width="36" height="3" fill="white"></rect>
+                                        </svg>`;
+
+        
+        this.closeMenuIcon = document.createElement( 'svg' );
+        this.closeMenuIcon.innerHTML = `<svg viewBox="-1 0 44 44" width="44" height="44">
+                                            <rect x="12" y="0" width="36" height="3" transform="rotate(45)" fill="white"></rect>
+                                            <rect x="-19" y="28" width="36" height="3" transform="rotate(-45)" fill="white"></rect>
+                                        </svg>`;
+
+        // add the SVG to the toggle buttons
+        this.toggleButton.appendChild( this.openMenuIcon );
+
+        // store the current selected button and menu open state
         this.currentSelection = -1;
+        this.menuOpen = false;
 
     }
 
@@ -47,14 +74,12 @@ export class Menu
     setSelected( buttonIndex )
     {
 
-        // When this is called, a button has been clicked
-        // we get the button array location via buttonIndex
-
-        // If we have a currently selected button
-        // set it's selected value to false
+        // deselect current button
         if( this.currentSelection != -1 )
         {
+            
             this.buttons[ this.currentSelection ].setSelected( false );
+
         }
 
         // Store the new button selection
@@ -62,6 +87,35 @@ export class Menu
 
         // And set the button state to selected
         this.buttons[ this.currentSelection ].setSelected( true );
+
+        // close the menu to show the content
+        this.toggleMenuState();
+
+    }
+
+    toggleMenuState( event )
+    {
+
+        // toggle menuOpen boolean
+        this.menuOpen = !this.menuOpen;
+        // update nav div class
+        this.domElement.className = this.menuOpen ? 'nav open' : 'nav';
+        
+        // update toggleButton icon
+        if( this.menuOpen )
+        {
+
+            this.toggleButton.removeChild( this.openMenuIcon );
+            this.toggleButton.appendChild( this.closeMenuIcon );
+
+        }
+        else
+        {
+
+            this.toggleButton.removeChild( this.closeMenuIcon );
+            this.toggleButton.appendChild( this.openMenuIcon );
+
+        }
 
     }
 

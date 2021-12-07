@@ -1,202 +1,229 @@
-#### Lesson 04
-## Adding Functionality With Events and Callbacks
+#### Lesson 05
+## Extra: Using The Menu
 
-Now we have a menu created with javascript we can start to add extra features to our menu which aren't so simple to do with HTML and CSS.  
+We have a functioning menu so let's make it show some content and  while we're doing that we can add an open and close toggle for the menu as well. This means that we can show a full page of content and display the menu above it when needed.  
 
-Let's start by making sure our currently selected item stays in it's hover state when it has been selected.  
+### Updating The Content
 
-We need to add some extra logic to both then Menu and MenuButton classes to achieve this.  
-
-- The Menu will create each MenuButton
-- When a MenuButton is clicked, it will call a callback function on index.js
-- When index.js is told a MenuButton is clicked it should check if it's a new selection and update the menu accordingly.
-
-### Updating The MenuButton Class
-
-Let's start by adding the extra pieces we need to MenuButton. We want each button to know what text it should display, an ID or Index for the button so the Menu knows which was clicked and we will also add a Callback Function for the MenuButton to call once it has been clicked. We also need to track whether our button is selected or not. Our new constructor looks like this:
-```javascript
-constructor( label, index, clickCallback )
-{
-
-    this.label = label; // Store the Button Copy
-    this.index = index; // Store the Button Index / ID
-    this.clickCallback = clickCallback; // Store the Callback Function
-    this.selected = false; // Store Selected state and set to false
-    
-    ...
-```
-
-We also need to add a couple of functions to help control the button state. 
-
-First we can add a function to update the selected boolean and also update the domElement class.  
-
-```javascript
-// Set the button state
-setSelected( selected )
-{
-
-    // We store the updated selection state
-    this.selected = selected;
-    
-    // And update the CSS class accordingly
-    if( this.selected ) 
+We can update the json data to include a title and some content for each page, be sure to rename the json node to something appropriate if needed. There is also a special node added under `default_page` so that we can display some content when landing on the page.  
+```json
+"page_data" : [
     {
-        // When the button is selected we give it an extra CSS class, 'selected'
-        this.domElement.className = 'nav selected';
-    }
-    else
-    {
-        // Otherwise it should behave as normal
-        this.domElement.className = 'nav';
-    }
-
-}
+        "link_label" : "Link One",
+        "title" : "Page One",
+        "content" : "This is page one, it is the first page."
+    },
 ```
 
-And we also add a function that is called when a user clicks on the MenuButton, our Event Handler. Note, Event Handlers receive Event Objects with more detailed information. We access these, if needed, via the function property.  
-More info: [Click Event on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event)
+### Updating The Menu
 
-```javascript
-// Our click event handler
-handleClick( event )
-{
-
-    // here we call the clickCallback function
-    // and pass it the button index.
-    this.clickCallback( this.index );
-
-}
-```
-
-### Adding The Event Listener
-
-In the last lesson we created our MenuButton but we didn't keep a reference to the `<a>` element which we want to attach the Event Listener to. (We _could_ add the Event Listener to the `<li>` element but it's good practice to use anchors).  
-
-So how do we get access to the anchor tag? We know that it is the only child of our `this.domElement` object so we can access it using `this.domElement.firstChild`. We add the event listener here for a `click` event.  
-More Info: [Node on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Node)
-```javascript
-this.domElement.firstChild.addEventListener( 'click', this.handleClick );
-```
-
-Now when we click on any of the buttons they will call the `handleClick` function in the MenuButton class. 
-
-Because we are handling the click event in javascript, we can remove the `href` value from the anchor tag. 
-```js
-<a class="nav">
-```
-
-#### A quick note on Scope and .bind()
-
-The Click event is Scoped to the Anchor element, that means that when the handleClick Event Handler is called it can't see the MenuButton class variables or methods, it is being called on the Anchor tag itself. In some cases this might be the desired functionality, but in this case we want handleClick to be Scoped to our MenuButton class so we can access the properties.  
-We do that by 'binding' our callback function to our class. We are setting `this.handleClick` to be bound to `this` which is our MenuButton class.
-```javascript
-this.handleClick = this.handleClick.bind( this );
-```
-Now when handleClick is called it can see the MenuButton variables.  
-
-### Updating The Menu Class
-
-We now need to update the Menu class so that our MenuButtons are passed all the information they needed when we create them and also add a function to be called when the MenuButton is clicked.  
-
-First we need to update the constructor so that we can pass and store a callback function and also create a variable to store the currently selected button index. We want the menu to start with nothing selected so we set the value to -1.
-```javascript
-constructor( menuData, clickCallback )
-{
-    
-    // Store the menu Data and callback function
-    this.menuData = menuData;
-    this.clickCallback = clickCallback;
-
-    ...
-
-    // Store the current selection
-    this.currentSelection = -1;
-
-    ...
-```
-
-Next we need to create a function that we will use to update the Menu once a MenuButton is clicked.
-
-```javascript
-setSelected( buttonIndex )
-{
-
-    // If we have a currently selected button
-    // set it's selected value to false
-    if( this.currentSelection != -1 )
-    {
-        this.buttons[ this.currentSelection ].setSelected( false );
-    }
-
-    // Store the new button selection
-    this.currentSelection = buttonIndex;
-
-    // And set the button state to selected
-    this.buttons[ this.currentSelection ].setSelected( true );
-
-}
-```
-
-Now we can add the new properties to our MenuButtons when we create them. Note we're no longer using links on the anchor tag any more so we don't need to pass a link to the button.
-
-```javascript
-this.buttons[ i ] = new MenuButton( 
-                        buttonData.label, // the button label
-                        i, // the button index
-                        this.clickCallback // the function we want it to call when clicked
-                    );
-```
-
-### Updated index.js
-
-We need to create a function to act as our Event Handler on the index.js file. All we need to do in this method is check whether the clicked button index is different to the current selection and update the menu if so.
-
-```javascript
-// Callback function for the MenuButtons
-function handleMenuButtonClick( buttonIndex )
-{
-
-    // If this button is already selected, we can ignore the click
-    if( menu.currentSelection == buttonIndex )
-        return;
-
-    // Otherwise tell the menu to update
-    menu.setSelected( buttonIndex ); 
-}
-```
-
-and of course we need to pass this callback function to the Menu class when we create it. This is a function that we `bind` to the index.js scope so that no matter where it is called from it has access to our Menu class. 
-
-```javascript
-let menu = new Menu( Data.menu_data, handleMenuButtonClick.bind( this ) );
-```
-
-### Updated CSS
-
-Our updates are nearly finished but we need to update our CSS to show our selected button state.
-Previously we set a button hover state using CSS selectors, specifically the `:hover` selector for when our mouse cursor is over the button. We also want to use this style to show the currently selected menu button so we add that element and class combination to our CSS.
+To slide the menu in and out of view we can use CSS to position the menu absolutely and move it off screen by using a negative `left` value. Changing the `left` value to 0 will bring the div into view and we can transition that value to create an animation.
 
 ```css
-/* We now want the button hover state to stay active if it has our selected class added */
-li.nav:hover div.nav-fill, 
-li.selected div.nav-fill {
-    width: 7px;
-    transition: width 0.165s cubic-bezier(0.5, 1, 0.89, 1);
+div.nav {
+    width: 350px;
+    background-color: black;
+    position: absolute;
+    left: -350px; /* start menu off screen */
+    transition: left 0.45s cubic-bezier(0.5, 1, 0.89, 1);
+}
+
+div.open {
+    left: 0px;
 }
 ```
-
-You can see that we are using the same styling as before on both the `nav-fill` and `nav-copy` elements, but by adding `li.selected div.nav-fill` after our original class we can also show this state when the `nav-fill` div is inside an `<li>` tag with the  `selected` class. 
-
-We no longer see the correct cursor when our mouse is over the button because the browser can't see a link on the tag. So we add `cursor: pointer` to the `li.nav` style.
+For the toggle button we'll use a square div with it's `left` value set to the width of the menu so it is the only visible component when the menu is closed.  
 ```css
-li.nav {
-    display: block;
-    list-style-type: none;
-    background-color: lightgrey;
-    margin: 3px;
+div.nav-toggle {
+    width: 44px;
+    height: 44px;
+    background: black;
+    position: absolute;
+    left: 350px;
+    top: 0px;
     cursor: pointer;
 }
 ```
+We create this `<div>` inside the Menu class and use some SVG icons to give user feedback, a cross to close the menu and a hamburger icon to open it. It needs to have an event listener added to the click event and we'll also need to track the menu open state, here we default to the menu being hidden.
 
-### All Done
-Now we can select a menu item and it will stay in the hover state until another menu item is selected, letting the user know which section they are currently in.
+```javascript
+// create a button to open / close the menu
+this.toggleButton = document.createElement( 'div' );
+this.toggleButton.className = 'nav-toggle';
+this.domElement.appendChild( this.toggleButton );
+
+this.toggleMenuState = this.toggleMenuState.bind( this );
+this.toggleButton.onclick = this.toggleMenuState;
+
+// create some SVG icons to display on the button 
+this.openMenuIcon = document.createElement( 'svg' );
+this.openMenuIcon.innerHTML = `<svg viewBox="0 0 44 44" width="44" height="44">
+                                    <rect x="4" y="10" width="36" height="3" fill="white"></rect>
+                                    <rect x="4" y="20" width="36" height="3" fill="white"></rect>
+                                    <rect x="4" y="30" width="36" height="3" fill="white"></rect>
+                                </svg>`;
+
+
+this.closeMenuIcon = document.createElement( 'svg' );
+this.closeMenuIcon.innerHTML = `<svg viewBox="-1 0 44 44" width="44" height="44">
+                                    <rect x="12" y="0" width="36" height="3" transform="rotate(45)" fill="white"></rect>
+                                    <rect x="-19" y="28" width="36" height="3" transform="rotate(-45)" fill="white"></rect>
+                                </svg>`;
+
+// add the SVG to the toggle buttons
+this.toggleButton.appendChild( this.openMenuIcon );
+
+// store the current selected button and menu open state
+this.currentSelection = -1;
+this.menuOpen = false;
+```
+
+When a user clicks the toggle button we will either open or close the menu. When we open the menu we change the button icon to the close icon and update the div class to `nav open`. When we close it we change to the hamburger icon and revert the class to `nav`.
+
+```javascript
+toggleMenuState( event )
+{
+
+    // toggle menuOpen boolean
+    this.menuOpen = !this.menuOpen;
+    // update nav div class
+    this.domElement.className = this.menuOpen ? 'nav open' : 'nav';
+    
+    // update toggleButton icon
+    if( this.menuOpen )
+    {
+
+        this.toggleButton.removeChild( this.openMenuIcon );
+        this.toggleButton.appendChild( this.closeMenuIcon );
+
+    }
+    else
+    {
+
+        this.toggleButton.removeChild( this.closeMenuIcon );
+        this.toggleButton.appendChild( this.openMenuIcon );
+
+    }
+
+}
+```
+
+### Creating A Page Class
+
+This is a really simple example, the page is a div containing a title element `<h2>` and a div for the copy. 
+
+```javascript
+export class Page
+{
+
+    constructor( title, content )
+    {
+
+        this.title = title;;
+        this.content = content;
+
+        this.domElement = document.createElement( 'div' );
+        this.domElement.className = 'page';
+
+        let titleText = document.createElement( 'h2' );
+        titleText.className = 'page-title';
+        titleText.innerHTML = title;
+
+        let bodyText = document.createElement( 'div' );
+        bodyText.className = 'page-content';
+        bodyText.innerHTML = content;
+
+        this.domElement.appendChild( titleText );
+        this.domElement.appendChild( bodyText );
+
+    }
+    
+}
+```
+```css
+/* Page Content */
+div.page {
+    padding: 58px 10px 10px 10px;
+}
+
+div.page h2 {
+    margin: 0 0 16px 0;
+}
+```
+
+
+### Creating an App
+
+If we are creating a website it's good practice to keep all our code inside an app. Here all the Menu parts have been moved into a new App.js leaving a bare looking index.js
+
+```javascript
+import '/src/css/style.css';
+
+// Import the App class
+import { App } from './app';
+
+// Create the App
+let app = new App();
+```
+
+The App class is creating the Menu, handling the clicks and displaying page content. The Menu parts are all the same as before only we're storing them in the class using `this.`
+
+```javascript
+// create the menu
+this.menu = new Menu( 
+    Data.page_data, // the menu will get link text from the page data
+    this.handleMenuButtonClick.bind( this ) // the callback function
+);
+
+ // create the page_data content
+this.pages = [];
+for( let i = 0; i < Data.page_data.length; i++ )
+{
+
+    this.pages[i] = new Page(
+        Data.page_data[i].title,
+        Data.page_data[i].content
+    );
+
+}
+
+// create the default_page content
+this.defaultPage = new Page(
+    Data.default_page.title,
+    Data.default_page.content
+);
+
+// we can use -1 to mean we are showing the default page
+this.currentPage = -1;
+```
+
+We need to add a function to swap the page content then call this when the user clicks on a new menu item so that the screen is updated.
+
+```javascript
+updatePageContent( pageIndex )
+{
+
+    // remove the current page, otherwise remove the default page
+    if( this.currentPage != -1 )
+    {
+
+        document.body.removeChild( this.pages[ this.currentPage ].domElement );
+
+    }
+    else
+    {
+
+        document.body.removeChild( this.defaultPage.domElement );
+
+    }
+
+    // update the current page
+    this.currentPage = pageIndex;
+
+    // add the new page to the document body
+    document.body.appendChild( this.pages[ this.currentPage].domElement )
+
+}
+```
+
+
