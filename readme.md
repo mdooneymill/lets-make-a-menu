@@ -200,3 +200,5 @@ li.nav {
 
 ### All Done
 Now we can select a menu item and it will stay in the hover state until another menu item is selected, letting the user know which section they are currently in.
+
+<img width="500" src="docs/lesson-04-complete.gif"/>
