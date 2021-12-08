@@ -22,6 +22,8 @@ Here are 6 example transitions using our menu.
 
 ### Fade Background Colour
 
+<img src="docs/l02-bg-fade.gif" width="350">
+
 The `<li>` tag and it's content remain the same in this example. By adding one line to our existing CSS we can fade the background colour over time.
 
 ```css
@@ -41,6 +43,8 @@ li.nav:hover {
 The transition we added says that the `background-color` property should transition over `0.25` seconds with an `ease-out` motion. Now when we change the colour on the hover state the css knows what colour to transition to.
 
 ### Text Shadow
+
+<img src="docs/l02-text-shadow.gif" width="350">
 
 The text shadow effect needs to target the copy in our button rather than the whole box. With CSS we can set styles on classes that live within other classes. In this example we only want to style our nav-item `<div>` which lives inside the example-02 `<li>`.  
 You can target that combination by adding the parent first, then leaving a space and adding the child class.
@@ -103,6 +107,8 @@ Read more: [position CSS property on MDN](https://developer.mozilla.org/en-US/do
 
 ### Scale Background Width
 
+<img src="docs/l02-scale-bg-width.gif" width="350">
+
 Now we can animate the background of the link to give us some fancier effects and we haven't even touched any javascript.  
 
 In this example the width is scaled from 0 to 100%.
@@ -120,6 +126,8 @@ li.example-03:hover div.nav-fill {
 
 ### Scale Background Height
 
+<img src="docs/l02-scale-bg-height.gif" width="350">
+
 Almost the same as above but we transition the height property instead.
 
 ```css
@@ -134,6 +142,8 @@ li.example-04:hover div.nav-fill {
 ```
 
 ### Masked Background
+
+<img src="docs/l02-bg-mask.gif" width="350">
 
 Up til now our background div was the same size and shape as our button and we altered it's size. If we set the size to a value larger than 100% or less than 0 our background would be visble outside of the button.
 
@@ -161,6 +171,8 @@ li.example-05:hover div.nav-fill {
 ```
 
 ### Multiple Properties and Delays
+
+<img src="docs/l02-multi-props.gif" width="350">
 
 You can use multiple css transitions on your elements at once and when combined with delays create complex looking transitions.  
 
