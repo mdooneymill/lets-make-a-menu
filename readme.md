@@ -11,8 +11,8 @@ Use your browser dev tools to inspect menu elements and CSS properties and play 
 ### Running The Examples
 
 This is a webpack project with both a dev and build option.  
-Install required node packages with `npm i`
-Run the examples with `npm run dev`
+Install required node packages with `npm i`  
+Run the examples with `npm run dev`  
 Build files for the web with `npm run build`  
 
 ### Contents
