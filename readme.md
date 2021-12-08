@@ -226,4 +226,5 @@ updatePageContent( pageIndex )
 }
 ```
 
+<img width="700" src="docs/lesson-05-complete.gif"/>
 
