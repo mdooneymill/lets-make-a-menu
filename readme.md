@@ -133,7 +133,7 @@ constructor( label, link )
 
 And now we have a dynamic menu which can be re-used across multiple locations with content based on data we pass it.
 
-<video width="350">
+<video style="width:700px" controls>
     <source src="/docs/lesson-03-complete.webm"
             type="video/webm">
     <source src="/docs/lesson-03-complete.mp4"
