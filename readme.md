@@ -1,6 +1,6 @@
 ## Let's Make A Menu
 
-This is intended as a guide to using HTML, CSS and Javascript to build a menu.  
+This is intended as a basic guide to using HTML, CSS and Javascript to build a menu and basic website. It assumes you know how HTML and CSS work and provides a quick intro on how to use those with javascript to create dynamic HTML pages.
 
 Each lesson is a different branch of this repo. Once the dev build is watching files and running in the browser you can checkout whichever branch you want to look at and the web page will update to reflect the changes.
 
