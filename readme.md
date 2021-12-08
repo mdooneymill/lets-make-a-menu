@@ -133,6 +133,13 @@ constructor( label, link )
 
 And now we have a dynamic menu which can be re-used across multiple locations with content based on data we pass it.
 
+<video width="350">
+    <source src="/docs/lesson-03-complete.webm"
+            type="video/webm">
+    <source src="/docs/lesson-03-complete.mp4"
+            type="video/mp4">
+</video>
+
 ### Further Reading
 
 [Document.createElement on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement)  
