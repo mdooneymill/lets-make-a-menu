@@ -16,10 +16,17 @@ Run the examples with `npm run dev`  and `npm run build
 
 ### Contents
 
-[Lesson 01 - Static HTML and CSS](https://github.com/mdooneymill/lets-make-a-menu/tree/01)
+[Lesson 01 - Static HTML and CSS](https://github.com/mdooneymill/lets-make-a-menu/tree/01)  
+Create a static menu with HTML and CSS
 
 [Lesson 02 - CSS Transitions](https://github.com/mdooneymill/lets-make-a-menu/tree/02)  
+Add hover effects to buttons using CSS Transitions
 
 [Lesson 03 - Creating Elements With Javascript](https://github.com/mdooneymill/lets-make-a-menu/tree/03)  
+Create HTML elements from json data using javascript
 
-[Lesson 04 - Adding Functionality With Events and Callbacks](https://github.com/mdooneymill/lets-make-a-menu/tree/04)
+[Lesson 04 - Adding Functionality With Events and Callbacks](https://github.com/mdooneymill/lets-make-a-menu/tree/04)  
+Adding extra user feedback and usability to the menu
+
+[Lesson 05 - Extra: Using The Menu](https://github.com/mdooneymill/lets-make-a-menu/tree/04)  
+Make the menu toggle in and out of view and update page content
